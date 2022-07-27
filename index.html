@@ -9,24 +9,32 @@
     <div id="root"></div>
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
       const root = document.getElementById("root");
-      const h3 = React.createElement(
-        "h3",
-        {
-          onMouseEnter: () => console.log("mouse enter"),
-        },
-        "Hello! I'm sexy guy~"
-      );
-      const btn = React.createElement(
-        "button",
-        {
-          onClick: () => console.log("I'm click"),
-        },
-        "Click me"
-      );
-      const box = React.createElement("div", null, [h3, btn]);
-      ReactDOM.render(box, root);
+      const App = () => {
+        const [minutes, setMinutes] = React.useState(0);
+        const onChange = (event) => {
+          setMinutes(event.target.value);
+        };
+        return (
+          <div>
+            <h1>Sexy Coverter</h1>
+            <label htmlFor="minutes"></label>
+            <input
+              id="minutes"
+              value={minutes}
+              type="number"
+              placeholder="Minute"
+              onChange={onChange}
+            />
+            <h2>You want to convert {minutes}</h2>
+            <label htmlFor="hour"></label>
+            <input id="hour" placeholder="Hour" />
+          </div>
+        );
+      };
+      ReactDOM.render(<App />, root);
     </script>
   </body>
 </html>
