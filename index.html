@@ -13,24 +13,46 @@
     <script type="text/babel">
       const root = document.getElementById("root");
       const App = () => {
-        const [minutes, setMinutes] = React.useState(0);
+        const [amount, setamount] = React.useState(0);
+        const [flip, setFlip] = React.useState(false);
         const onChange = (event) => {
-          setMinutes(event.target.value);
+          setamount(event.target.value);
+        };
+        const Reset = () => {
+          setamount(0);
+        };
+        const Flip = () => {
+          Reset();
+          setFlip((current) => !current);
         };
         return (
           <div>
-            <h1>Sexy Coverter</h1>
-            <label htmlFor="minutes"></label>
-            <input
-              id="minutes"
-              value={minutes}
-              type="number"
-              placeholder="Minute"
-              onChange={onChange}
-            />
-            <h2>You want to convert {minutes}</h2>
-            <label htmlFor="hour"></label>
-            <input id="hour" placeholder="Hour" />
+            <h1>Sexy Converter</h1>
+            <div>
+              <label htmlFor="amount">amount</label>
+              <input
+                id="amount"
+                value={flip ? amount * 60 : amount}
+                type="number"
+                placeholder="Minute"
+                onChange={onChange}
+                disabled={flip}
+              />
+            </div>
+            <div>
+              <label htmlFor="hour">Hour</label>
+              <input
+                value={flip ? amount : Math.round(amount / 60)}
+                disabled={!flip}
+                id="hour"
+                placeholder="Hour"
+                onChange={onChange}
+              />
+            </div>
+            <div>
+              <button onClick={Reset}>Reset</button>
+              <button onClick={Flip}>Flip</button>
+            </div>
           </div>
         );
       };
